@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Coming Soon</title>
 
-    <!-- Fonts to match your screenshot (Poppins for headings, Inter for body) -->
+    <!-- Fonts to match your screenshot (Poppins for headings/description, Inter for body) -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -28,7 +28,7 @@
         --btn-bg: #ffffff;
         --btn-text: #0B1C2D;
 
-        /* Fonts (from screenshot vibe) */
+        /* Fonts */
         --font-heading: "Poppins", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
         --font-body: "Inter", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
 
@@ -56,7 +56,6 @@
         flex: 1.05;
         position: relative;
         overflow: hidden;
-
         background-image:
           linear-gradient(120deg, rgba(0,0,0,0.18), rgba(0,0,0,0.12)),
           radial-gradient(1000px 700px at 30% 10%, rgba(255,255,255,0.12), transparent 60%),
@@ -155,23 +154,23 @@
         font-family: var(--font-body);
       }
 
-      /* Heading font to match your screenshot */
+      /* Heading size -20% */
       .headline {
         font-family: var(--font-heading);
         font-weight: 800;
-        font-size: clamp(36px, 4.2vw, 56px);
+        font-size: clamp(28px, 3.36vw, 45px); /* was clamp(36px, 4.2vw, 56px) */
         margin: 0 0 12px;
         color: var(--navy);
         letter-spacing: -0.02em;
       }
 
-      /* Description font to match screenshot */
+      /* Description size -25% */
       .sub {
         font-family: var(--font-heading);
         font-weight: 600;
         margin: 0 0 26px;
         color: rgba(11, 28, 45, 0.82);
-        font-size: clamp(16px, 1.4vw, 20px);
+        font-size: clamp(12px, 1.05vw, 15px); /* was clamp(16px, 1.4vw, 20px) */
         max-width: 640px;
         margin-left: auto;
         margin-right: auto;
@@ -186,7 +185,8 @@
         margin-bottom: clamp(26px, 4vw, 44px);
       }
 
-      /* Button: white bg + navy text */
+      /* Button: white bg + navy text
+         Font matches description (Poppins) */
       .btn {
         appearance: none;
         border: 1px solid rgba(11, 28, 45, 0.22);
@@ -195,7 +195,7 @@
         border-radius: 999px;
         background: var(--btn-bg);
         color: var(--btn-text);
-        font-weight: 800;
+        font-weight: 700;
         letter-spacing: 0.08em;
         text-transform: uppercase;
         font-size: 12px;
@@ -206,7 +206,7 @@
         display: inline-flex;
         align-items: center;
         justify-content: center;
-        font-family: var(--font-body);
+        font-family: var(--font-heading); /* changed */
       }
       .btn:hover {
         transform: translateY(-1px);
@@ -296,7 +296,7 @@
               target="_blank"
               rel="noreferrer"
             >
-              Prebookings
+              Prebook now
             </a>
           </div>
 
