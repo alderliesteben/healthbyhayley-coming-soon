@@ -4,18 +4,33 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Coming Soon</title>
+
+    <!-- Fonts to match your screenshot (Poppins for headings, Inter for body) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@600;700;800&display=swap"
+      rel="stylesheet"
+    />
+
     <style>
       :root {
-        /* RIGHT SIDE BACKGROUND (your attached gradient) */
-        --right-bg: linear-gradient(180deg, #fef9c9 0%, #e8f2f7 100%);
+        /* Slightly more vibrant (≈15%) version of your gradient */
+        --right-bg: linear-gradient(180deg, #fff6ad 0%, #d8edf8 100%);
 
         --text: #101114;
         --hairline: rgba(16, 17, 20, 0.10);
 
         /* Brand colours */
         --navy: #0B1C2D;
-        --btn-bg: #E6F2F7;   /* light blue */
-        --btn-text: #0B1C2D; /* navy */
+
+        /* Button: white with navy text */
+        --btn-bg: #ffffff;
+        --btn-text: #0B1C2D;
+
+        /* Fonts (from screenshot vibe) */
+        --font-heading: "Poppins", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+        --font-body: "Inter", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
 
         /* Layout */
         --max-width: 1200px;
@@ -25,8 +40,7 @@
       html, body { height: 100%; }
       body {
         margin: 0;
-        font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji",
-          "Segoe UI Emoji";
+        font-family: var(--font-body);
         color: var(--text);
         background: #f5f6f7;
       }
@@ -89,13 +103,14 @@
         text-align: center;
       }
 
-      /* Health by Hayley: light blue */
+      /* Logo: navy */
       .logo {
         font-weight: 700;
         letter-spacing: 0.14em;
         font-size: 22px;
         margin-bottom: clamp(20px, 3vw, 34px);
-        color: var(--btn-bg); /* changed to light blue */
+        color: var(--navy);
+        font-family: var(--font-body);
       }
 
       .countdown {
@@ -137,22 +152,30 @@
         letter-spacing: 0.18em;
         text-transform: uppercase;
         color: rgba(16,17,20,0.22);
+        font-family: var(--font-body);
       }
 
+      /* Heading font to match your screenshot */
       .headline {
-        font-family: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
-        font-size: clamp(34px, 4vw, 44px);
-        margin: 0 0 10px;
+        font-family: var(--font-heading);
+        font-weight: 800;
+        font-size: clamp(36px, 4.2vw, 56px);
+        margin: 0 0 12px;
         color: var(--navy);
+        letter-spacing: -0.02em;
       }
 
+      /* Description font to match screenshot */
       .sub {
+        font-family: var(--font-heading);
+        font-weight: 600;
         margin: 0 0 26px;
-        color: rgba(16,17,20,0.62);
-        font-size: 14px;
-        max-width: 520px;
+        color: rgba(11, 28, 45, 0.82);
+        font-size: clamp(16px, 1.4vw, 20px);
+        max-width: 640px;
         margin-left: auto;
         margin-right: auto;
+        line-height: 1.6;
       }
 
       .actions {
@@ -163,9 +186,10 @@
         margin-bottom: clamp(26px, 4vw, 44px);
       }
 
+      /* Button: white bg + navy text */
       .btn {
         appearance: none;
-        border: 1px solid rgba(11, 28, 45, 0.18);
+        border: 1px solid rgba(11, 28, 45, 0.22);
         cursor: pointer;
         padding: 14px 22px;
         border-radius: 999px;
@@ -182,12 +206,13 @@
         display: inline-flex;
         align-items: center;
         justify-content: center;
+        font-family: var(--font-body);
       }
       .btn:hover {
         transform: translateY(-1px);
         box-shadow: 0 12px 28px rgba(0,0,0,0.12);
-        background: #dbeef5;
-        border-color: rgba(11, 28, 45, 0.26);
+        background: rgba(255,255,255,0.92);
+        border-color: rgba(11, 28, 45, 0.30);
       }
       .btn:active { transform: translateY(0px); }
 
