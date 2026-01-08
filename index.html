@@ -14,8 +14,8 @@
 
         /* Brand colours */
         --navy: #0B1C2D;
-        --btn-bg: #E6F2F7;
-        --btn-text: #0B1C2D;
+        --btn-bg: #E6F2F7;   /* light blue */
+        --btn-text: #0B1C2D; /* navy */
 
         /* Layout */
         --max-width: 1200px;
@@ -89,13 +89,13 @@
         text-align: center;
       }
 
-      /* Health by Hayley 10% smaller + Navy */
+      /* Health by Hayley: light blue */
       .logo {
         font-weight: 700;
         letter-spacing: 0.14em;
-        font-size: 22px; /* smaller */
+        font-size: 22px;
         margin-bottom: clamp(20px, 3vw, 34px);
-        color: var(--navy);
+        color: var(--btn-bg); /* changed to light blue */
       }
 
       .countdown {
@@ -139,7 +139,6 @@
         color: rgba(16,17,20,0.22);
       }
 
-      /* Coming Soon title Navy */
       .headline {
         font-family: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
         font-size: clamp(34px, 4vw, 44px);
@@ -164,7 +163,6 @@
         margin-bottom: clamp(26px, 4vw, 44px);
       }
 
-      /* Prebookings button light blue + navy text */
       .btn {
         appearance: none;
         border: 1px solid rgba(11, 28, 45, 0.18);
@@ -201,7 +199,6 @@
         margin-top: 8px;
       }
 
-      /* Social icons 10% bigger */
       .iconBtn {
         width: 48px;
         height: 48px;
@@ -264,7 +261,8 @@
 
           <h1 class="headline">Watch this space!</h1>
           <p class="sub" id="subText">
-We’re live Sunday night, 18th January. Prebook early for an opening offer and your preferred appointment time. Doors open Tuesday, 27 January on Buderim High Street.          </p>
+            We’re live Sunday night, 18th January. Prebook early for an opening offer and your preferred appointment time. Doors open Tuesday, 27 January on Buderim High Street.
+          </p>
 
           <div class="actions">
             <a
@@ -338,31 +336,10 @@ We’re live Sunday night, 18th January. Prebook early for an opening offer and 
 
     <script>
       /**
-       * Countdown ends on WEDNESDAY 18:00 Queensland time (Australia/Brisbane, UTC+10).
-       * Auto-calculates the NEXT Wednesday at 18:00 Brisbane time.
+       * Countdown target: Sunday 18:00 (Queensland time) on January 18th, 2026.
+       * Queensland (Brisbane) is UTC+10 year-round, so 18:00 AEST == 08:00 UTC.
        */
-
-      const BRISBANE_OFFSET_MS = 10 * 60 * 60 * 1000; // QLD is UTC+10 year-round
-
-      function getNextWednesday6pmBrisbaneUtcMs(nowUtcMs) {
-        const brisNow = new Date(nowUtcMs + BRISBANE_OFFSET_MS);
-
-        const year = brisNow.getUTCFullYear();
-        const month = brisNow.getUTCMonth();
-        const date = brisNow.getUTCDate();
-        const day = brisNow.getUTCDay(); // 0=Sun ... 3=Wed
-
-        const isWed = day === 3;
-        const after6pm =
-          brisNow.getUTCHours() > 18 ||
-          (brisNow.getUTCHours() === 18 && (brisNow.getUTCMinutes() > 0 || brisNow.getUTCSeconds() > 0));
-
-        let daysUntil = (3 - day + 7) % 7;
-        if (isWed && after6pm) daysUntil = 7;
-
-        // Brisbane 18:00 == UTC 08:00 (because +10)
-        return Date.UTC(year, month, date + daysUntil, 8, 0, 0);
-      }
+      const TARGET_UTC_MS = Date.UTC(2026, 0, 18, 8, 0, 0);
 
       const el = {
         days: document.getElementById("days"),
@@ -384,9 +361,7 @@ We’re live Sunday night, 18th January. Prebook early for an opening offer and 
 
       function update() {
         const nowUtcMs = Date.now();
-        const targetUtcMs = getNextWednesday6pmBrisbaneUtcMs(nowUtcMs);
-
-        let diff = targetUtcMs - nowUtcMs;
+        let diff = TARGET_UTC_MS - nowUtcMs;
         if (diff <= 0) diff = 0;
 
         const totalSeconds = Math.floor(diff / 1000);
