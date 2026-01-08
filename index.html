@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Coming Soon</title>
 
-    <!-- Fonts to match your screenshot (Poppins for headings/description, Inter for body) -->
+    <!-- Fonts (Poppins + Inter) -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -15,11 +15,6 @@
 
     <style>
       :root {
-        /*
-          Updated background:
-          - Holds the yellow longer so the colours start merging just above the heading
-          - Makes the yellow -> blue fade ~10% faster by compressing the transition range
-        */
         --right-bg: linear-gradient(
           180deg,
           #fff6ad 0%,
@@ -112,6 +107,31 @@
         text-align: center;
       }
 
+      /* ===== ENTER ANIMATION (subtle + professional) ===== */
+      .logo, .countdown, .headline, .sub, .actions, .socials {
+        opacity: 0;
+        transform: translateY(10px);
+        animation: enterUp 700ms ease-out forwards;
+      }
+      .logo { animation-delay: 80ms; }
+      .countdown { animation-delay: 160ms; }
+      .headline { animation-delay: 240ms; }
+      .sub { animation-delay: 320ms; }
+      .actions { animation-delay: 400ms; }
+      .socials { animation-delay: 480ms; }
+
+      @keyframes enterUp {
+        to { opacity: 1; transform: translateY(0); }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .logo, .countdown, .headline, .sub, .actions, .socials {
+          animation: none !important;
+          opacity: 1 !important;
+          transform: none !important;
+        }
+      }
+
       /* Logo: navy */
       .logo {
         font-weight: 700;
@@ -136,6 +156,7 @@
         display: grid;
         gap: 8px;
         justify-items: center;
+        min-width: 0;
       }
 
       .num {
@@ -147,6 +168,7 @@
         letter-spacing: 0.02em;
         position: relative;
         transform: translateZ(0);
+        white-space: nowrap;
       }
 
       .num.tick { animation: pop 280ms ease-out; }
@@ -174,7 +196,7 @@
         letter-spacing: -0.02em;
       }
 
-      /* Description: 10% smaller + 10% more faded */
+      /* Description */
       .sub {
         font-family: var(--font-heading);
         font-weight: 600;
@@ -257,8 +279,20 @@
         .right::before { display: none; }
       }
 
+      /* Mobile countdown fit better (no desktop change) */
       @media (max-width: 520px) {
-        .countdown { grid-template-columns: repeat(2, 1fr); gap: 14px; }
+        .countdown {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+          gap: 12px;
+          max-width: 360px;
+        }
+        .num {
+          font-size: clamp(36px, 10vw, 46px);
+        }
+        .label {
+          font-size: 10px;
+          letter-spacing: 0.14em;
+        }
         .btn { min-width: 100%; }
         .actions { flex-direction: column; }
       }
@@ -275,7 +309,7 @@
 
           <div class="countdown" aria-label="Countdown">
             <div class="timebox">
-              <div class="num" id="days">000</div>
+              <div class="num" id="days">0</div>
               <div class="label">Day(s)</div>
             </div>
             <div class="timebox">
@@ -294,7 +328,8 @@
 
           <h1 class="headline">Watch this space!</h1>
           <p class="sub" id="subText">
-          Our website is live Sunday night, 18 January. Prebook early for an discounted opening offer and your preferred appointment time. Doors open Tuesday, 27 January on Buderim High Street.          </p>
+            Our website is live Sunday night, 18 January. Prebook early for an discounted opening offer and your preferred appointment time. Doors open Tuesday, 27 January on Buderim High Street.
+          </p>
 
           <div class="actions">
             <a
@@ -337,7 +372,8 @@
               </svg>
             </a>
 
-            <a class="iconBtn" href="https://www.google.com/" target="_blank" rel="noreferrer" объясняющий aria-label="Google Business Profile">
+            <!-- removed the accidental 'объясняющий' word -->
+            <a class="iconBtn" href="https://www.google.com/" target="_blank" rel="noreferrer" aria-label="Google Business Profile">
               <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
                 <path
                   d="M21 12.3c0-.7-.1-1.2-.2-1.8H12v3.4h5.1c-.1.9-.8 2.3-2.4 3.2l-.1.1 2.8 2.1.2-.2c2-1.8 3.4-4.5 3.4-7.8Z"
@@ -381,7 +417,9 @@
       };
 
       const pad2 = (n) => String(n).padStart(2, "0");
-      const pad3 = (n) => String(n).padStart(3, "0");
+
+      // Days should NOT have leading zeros (fix: remove "00" prefix)
+      const formatDays = (n) => String(Math.max(0, n));
 
       const last = { days: null, hours: null, minutes: null, seconds: null };
 
@@ -403,7 +441,7 @@
         const seconds = totalSeconds % 60;
 
         const next = {
-          days: pad3(days),
+          days: formatDays(days),      // <- no leading zeros
           hours: pad2(hours),
           minutes: pad2(minutes),
           seconds: pad2(seconds),
