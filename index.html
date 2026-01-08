@@ -3,91 +3,396 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Health by Hayley — Coming Soon</title>
+    <title>Coming Soon</title>
     <style>
+      :root {
+        /* === Brand colours (you’ll tell me what to set these to next) === */
+        --right-bg: #ffffff;
+        --text: #101114;
+        --muted: #9aa0a6;
+        --hairline: rgba(16, 17, 20, 0.10);
+        --accent: #8a5a12;          /* button */
+        --accent-hover: #744b0f;
+        --accent-text: #ffffff;
+
+        /* Layout */
+        --panel-radius: 0px;
+        --max-width: 1200px;
+      }
+
+      * { box-sizing: border-box; }
+      html, body { height: 100%; }
       body {
         margin: 0;
-        font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-        background: #0b1b2b;
-        color: #fff;
-        min-height: 100vh;
-        display: grid;
-        place-items: center;
-        padding: 24px;
+        font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji",
+          "Segoe UI Emoji";
+        color: var(--text);
+        background: #f5f6f7;
       }
+
+      .page {
+        min-height: 100vh;
+        display: flex;
+        align-items: stretch;
+      }
+
+      /* LEFT IMAGE PANEL */
+      .left {
+        flex: 1.05;
+        position: relative;
+        overflow: hidden;
+        background:
+          linear-gradient(120deg, rgba(0,0,0,0.18), rgba(0,0,0,0.12)),
+          radial-gradient(1000px 700px at 30% 10%, rgba(255,255,255,0.12), transparent 60%),
+          linear-gradient(180deg, #cfcfd3, #b9bcc2);
+        /* Replace with your image:
+           background-image: url("/path/to/your-image.jpg");
+           background-size: cover;
+           background-position: center;
+        */
+        background-size: cover;
+        background-position: center;
+      }
+
+      /* Optional subtle vignette like the reference */
+      .left::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(900px 700px at 35% 40%, transparent 35%, rgba(0,0,0,0.35) 100%);
+        pointer-events: none;
+        opacity: 0.35;
+      }
+
+      /* RIGHT CONTENT PANEL */
+      .right {
+        flex: 1;
+        background: var(--right-bg);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: clamp(28px, 4vw, 56px);
+        position: relative;
+      }
+
+      /* Divider shadow between panels */
+      .right::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        width: 28px;
+        background: linear-gradient(90deg, rgba(0,0,0,0.10), transparent);
+        opacity: 0.35;
+        pointer-events: none;
+      }
+
       .card {
-        width: min(560px, 100%);
-        background: rgba(255, 255, 255, 0.06);
-        border: 1px solid rgba(255, 255, 255, 0.12);
-        border-radius: 16px;
-        padding: 28px;
+        width: 100%;
+        max-width: var(--max-width);
         text-align: center;
       }
-      h1 { margin: 0 0 10px; font-size: 34px; letter-spacing: 0.2px; }
-      p { margin: 0 0 20px; opacity: 0.9; line-height: 1.4; }
-      .btn {
-        display: inline-block;
-        padding: 12px 18px;
-        border-radius: 12px;
-        background: #ffffff;
-        color: #0b1b2b;
-        text-decoration: none;
-        font-weight: 600;
+
+      .logo {
+        font-weight: 700;
+        letter-spacing: 0.14em;
+        font-size: 22px;
+        margin-bottom: clamp(20px, 3vw, 34px);
       }
-      .icons {
-        margin-top: 18px;
+
+      .countdown {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: clamp(12px, 2vw, 26px);
+        align-items: end;
+        justify-content: center;
+        margin: 0 auto clamp(26px, 4vw, 44px);
+        max-width: 560px;
+      }
+
+      .timebox {
+        display: grid;
+        gap: 8px;
+        justify-items: center;
+      }
+
+      .num {
+        font-family: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+        font-size: clamp(44px, 5vw, 58px);
+        line-height: 1;
+        color: rgba(16,17,20,0.35);
+        font-variant-numeric: tabular-nums;
+        letter-spacing: 0.02em;
+        position: relative;
+        transform: translateZ(0);
+      }
+
+      /* Simple “tick” animation when digits change */
+      .num.tick {
+        animation: pop 280ms ease-out;
+      }
+      @keyframes pop {
+        0% { transform: translateY(0); opacity: 0.75; }
+        40% { transform: translateY(-4px); opacity: 1; }
+        100% { transform: translateY(0); opacity: 1; }
+      }
+
+      .label {
+        font-size: 11px;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: rgba(16,17,20,0.22);
+      }
+
+      .headline {
+        font-family: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+        font-size: clamp(34px, 4vw, 44px);
+        margin: 0 0 10px;
+      }
+
+      .sub {
+        margin: 0 0 26px;
+        color: rgba(16,17,20,0.62);
+        font-size: 14px;
+      }
+
+      .actions {
         display: flex;
+        align-items: center;
         justify-content: center;
         gap: 14px;
+        margin-bottom: clamp(26px, 4vw, 44px);
       }
-      .icon {
+
+      .btn {
+        appearance: none;
+        border: none;
+        cursor: pointer;
+        padding: 14px 22px;
+        border-radius: 999px;
+        background: var(--accent);
+        color: var(--accent-text);
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        font-size: 12px;
+        min-width: 190px;
+        box-shadow: 0 10px 24px rgba(0,0,0,0.10);
+        transition: transform 150ms ease, background 150ms ease, box-shadow 150ms ease;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .btn:hover {
+        background: var(--accent-hover);
+        transform: translateY(-1px);
+        box-shadow: 0 12px 28px rgba(0,0,0,0.12);
+      }
+      .btn:active { transform: translateY(0px); }
+
+      .socials {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 12px;
+        margin-top: 8px;
+      }
+
+      .iconBtn {
         width: 44px;
         height: 44px;
+        border-radius: 999px;
         display: grid;
         place-items: center;
-        border-radius: 12px;
-        border: 1px solid rgba(255,255,255,0.18);
-        background: rgba(255,255,255,0.06);
+        border: 1px solid var(--hairline);
+        background: rgba(16,17,20,0.04);
+        transition: transform 150ms ease, background 150ms ease, border-color 150ms ease;
+        color: rgba(16,17,20,0.70);
         text-decoration: none;
       }
-      .icon svg { width: 22px; height: 22px; fill: #fff; opacity: 0.95; }
-      footer { margin-top: 16px; font-size: 13px; opacity: 0.75; }
+      .iconBtn:hover {
+        transform: translateY(-1px);
+        background: rgba(16,17,20,0.06);
+        border-color: rgba(16,17,20,0.18);
+      }
+      .iconBtn svg { width: 18px; height: 18px; }
+
+      /* Responsive: stack on mobile */
+      @media (max-width: 900px) {
+        .page { flex-direction: column; }
+        .left { min-height: 44vh; }
+        .right::before { display: none; }
+      }
+
+      @media (max-width: 520px) {
+        .countdown { grid-template-columns: repeat(2, 1fr); gap: 14px; }
+        .btn { min-width: 100%; }
+        .actions { flex-direction: column; }
+      }
     </style>
   </head>
+
   <body>
-    <main class="card">
-      <h1>Coming Soon</h1>
-      <p>
-        Health by Hayley is launching soon.<br />
-        Book ahead to secure your spot.
-      </p>
+    <main class="page">
 
-      <!-- Change this link to your booking/pre-book URL -->
-      <a class="btn" href="https://YOUR-BOOKING-LINK-HERE" target="_blank" rel="noreferrer">
-        Pre-book appointments
-      </a>
+      <!-- LEFT IMAGE PLACEHOLDER -->
+<section
+  class="left"
+  aria-label="Background image"
+  style="background-image: linear-gradient(120deg, rgba(0,0,0,0.18), rgba(0,0,0,0.12)), url('/your-image.jpg'); background-size: cover; background-position: center;"
+></section>
 
-      <div class="icons">
-        <!-- Facebook -->
-        <a class="icon" href="https://facebook.com/YOURPAGE" target="_blank" rel="noreferrer" aria-label="Facebook">
-          <svg viewBox="0 0 24 24" aria-hidden="true">
-            <path d="M22 12a10 10 0 1 0-11.6 9.9v-7H8v-3h2.4V9.7c0-2.4 1.4-3.7 3.6-3.7 1 0 2 .2 2 .2v2.2h-1.1c-1.1 0-1.4.7-1.4 1.4V12H16l-.4 3h-2.3v7A10 10 0 0 0 22 12z"/>
-          </svg>
-        </a>
 
-        <!-- Instagram -->
-        <a class="icon" href="https://instagram.com/YOURHANDLE" target="_blank" rel="noreferrer" aria-label="Instagram">
-          <svg viewBox="0 0 24 24" aria-hidden="true">
-            <path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5zm10 2H7a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V7a3 3 0 0 0-3-3zm-5 4.5A5.5 5.5 0 1 1 6.5 14 5.5 5.5 0 0 1 12 8.5zm0 2A3.5 3.5 0 1 0 15.5 14 3.5 3.5 0 0 0 12 10.5zM18 6.2a1.1 1.1 0 1 1-1.1 1.1A1.1 1.1 0 0 1 18 6.2z"/>
-          </svg>
-        </a>
-      </div>
+      <!-- RIGHT CONTENT -->
+      <section class="right">
+        <div class="card">
+          <div class="logo" id="logoText">HEALTH BY HAYLEY</div>
 
-      <footer>© <span id="y"></span> Health by Hayley</footer>
+          <div class="countdown" aria-label="Countdown">
+            <div class="timebox">
+              <div class="num" id="days">000</div>
+              <div class="label">Day(s)</div>
+            </div>
+            <div class="timebox">
+              <div class="num" id="hours">00</div>
+              <div class="label">Hour(s)</div>
+            </div>
+            <div class="timebox">
+              <div class="num" id="minutes">00</div>
+              <div class="label">Minute(s)</div>
+            </div>
+            <div class="timebox">
+              <div class="num" id="seconds">00</div>
+              <div class="label">Second(s)</div>
+            </div>
+          </div>
+
+          <h1 class="headline">Coming Soon</h1>
+          <p class="sub" id="subText">We’re getting things ready — bookings will open shortly.</p>
+
+          <div class="actions">
+            <!-- Replace href with your prebooking link -->
+            <a class="btn" href="https://your-prebooking-link.com" target="_blank" rel="noreferrer">
+              Prebookings
+            </a>
+          </div>
+
+          <nav class="socials" aria-label="Social links">
+            <!-- Replace href values with your real links -->
+            <a class="iconBtn" href="https://facebook.com/" target="_blank" rel="noreferrer" aria-label="Facebook">
+              <!-- Facebook icon -->
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path
+                  d="M14 9h3V6h-3c-2.2 0-4 1.8-4 4v2H7v3h3v7h3v-7h3l1-3h-4v-2c0-.6.4-1 1-1Z"
+                  fill="currentColor"
+                />
+              </svg>
+            </a>
+
+            <a class="iconBtn" href="https://instagram.com/" target="_blank" rel="noreferrer" aria-label="Instagram">
+              <!-- Instagram icon -->
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path
+                  d="M7.5 2h9A5.5 5.5 0 0 1 22 7.5v9A5.5 5.5 0 0 1 16.5 22h-9A5.5 5.5 0 0 1 2 16.5v-9A5.5 5.5 0 0 1 7.5 2Zm9 2h-9A3.5 3.5 0 0 0 4 7.5v9A3.5 3.5 0 0 0 7.5 20h9a3.5 3.5 0 0 0 3.5-3.5v-9A3.5 3.5 0 0 0 16.5 4Z"
+                  fill="currentColor"
+                />
+                <path
+                  d="M12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10Zm0 2a3 3 0 1 0 0 6 3 3 0 0 0 0-6Z"
+                  fill="currentColor"
+                />
+                <path d="M17.6 6.4a1 1 0 1 1-2 0 1 1 0 0 1 2 0Z" fill="currentColor" />
+              </svg>
+            </a>
+
+            <a class="iconBtn" href="https://www.google.com/" target="_blank" rel="noreferrer" aria-label="Google Business Profile">
+              <!-- Google 'G' simple icon -->
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path
+                  d="M21 12.3c0-.7-.1-1.2-.2-1.8H12v3.4h5.1c-.1.9-.8 2.3-2.4 3.2l-.1.1 2.8 2.1.2-.2c2-1.8 3.4-4.5 3.4-7.8Z"
+                  fill="currentColor"
+                  opacity="0.9"
+                />
+                <path
+                  d="M12 22c2.7 0 5-.9 6.6-2.4l-3.1-2.4c-.9.6-2 1-3.5 1-2.7 0-4.9-1.8-5.7-4.2H3.1v2.6C4.7 19.8 8 22 12 22Z"
+                  fill="currentColor"
+                  opacity="0.65"
+                />
+                <path
+                  d="M6.3 13.9c-.2-.6-.3-1.3-.3-1.9s.1-1.3.3-1.9V7.5H3.1A10 10 0 0 0 2 12c0 1.6.4 3.1 1.1 4.5l3.2-2.6Z"
+                  fill="currentColor"
+                  opacity="0.55"
+                />
+                <path
+                  d="M12 5.8c1.9 0 3.1.8 3.8 1.4l2.8-2.7C17 2.9 14.7 2 12 2 8 2 4.7 4.2 3.1 7.5l3.2 2.6C7.1 7.6 9.3 5.8 12 5.8Z"
+                  fill="currentColor"
+                  opacity="0.75"
+                />
+              </svg>
+            </a>
+          </nav>
+        </div>
+      </section>
     </main>
 
     <script>
-      document.getElementById("y").textContent = new Date().getFullYear();
+      /**
+       * Countdown target:
+       * Set to your launch date/time (local time). Example:
+       * new Date("2026-02-01T09:00:00")
+       */
+      const TARGET_DATE = new Date("2026-02-01T09:00:00");
+
+      const el = {
+        days: document.getElementById("days"),
+        hours: document.getElementById("hours"),
+        minutes: document.getElementById("minutes"),
+        seconds: document.getElementById("seconds"),
+      };
+
+      const pad2 = (n) => String(n).padStart(2, "0");
+      const pad3 = (n) => String(n).padStart(3, "0");
+
+      const last = { days: null, hours: null, minutes: null, seconds: null };
+
+      function tickAnim(node) {
+        node.classList.remove("tick");
+        // restart animation
+        void node.offsetWidth;
+        node.classList.add("tick");
+      }
+
+      function update() {
+        const now = new Date();
+        let diff = TARGET_DATE.getTime() - now.getTime();
+
+        if (diff <= 0) diff = 0;
+
+        const totalSeconds = Math.floor(diff / 1000);
+        const days = Math.floor(totalSeconds / 86400);
+        const hours = Math.floor((totalSeconds % 86400) / 3600);
+        const minutes = Math.floor((totalSeconds % 3600) / 60);
+        const seconds = totalSeconds % 60;
+
+        const next = {
+          days: pad3(days),
+          hours: pad2(hours),
+          minutes: pad2(minutes),
+          seconds: pad2(seconds),
+        };
+
+        for (const k of Object.keys(next)) {
+          if (last[k] !== next[k]) {
+            el[k].textContent = next[k];
+            tickAnim(el[k]);
+            last[k] = next[k];
+          }
+        }
+      }
+
+      update();
+      setInterval(update, 1000);
     </script>
   </body>
 </html>
