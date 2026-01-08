@@ -158,19 +158,19 @@
       .headline {
         font-family: var(--font-heading);
         font-weight: 800;
-        font-size: clamp(28px, 3.36vw, 45px); /* was clamp(36px, 4.2vw, 56px) */
+        font-size: clamp(28px, 3.36vw, 45px);
         margin: 0 0 12px;
         color: var(--navy);
         letter-spacing: -0.02em;
       }
 
-      /* Description size -25% */
+      /* Description: 10% smaller + 10% more faded */
       .sub {
         font-family: var(--font-heading);
         font-weight: 600;
         margin: 0 0 26px;
-        color: rgba(11, 28, 45, 0.82);
-        font-size: clamp(12px, 1.05vw, 15px); /* was clamp(16px, 1.4vw, 20px) */
+        color: rgba(11, 28, 45, 0.74);              /* was 0.82 */
+        font-size: clamp(10.8px, 0.945vw, 13.5px);  /* was clamp(12px, 1.05vw, 15px) */
         max-width: 640px;
         margin-left: auto;
         margin-right: auto;
@@ -185,11 +185,10 @@
         margin-bottom: clamp(26px, 4vw, 44px);
       }
 
-      /* Button: white bg + navy text
-         Font matches description (Poppins) */
+      /* Button: remove outline (border) */
       .btn {
         appearance: none;
-        border: 1px solid rgba(11, 28, 45, 0.22);
+        border: none; /* removed outline */
         cursor: pointer;
         padding: 14px 22px;
         border-radius: 999px;
@@ -201,18 +200,17 @@
         font-size: 12px;
         min-width: 190px;
         box-shadow: 0 10px 24px rgba(0,0,0,0.10);
-        transition: transform 150ms ease, box-shadow 150ms ease, background 150ms ease, border-color 150ms ease;
+        transition: transform 150ms ease, box-shadow 150ms ease, background 150ms ease;
         text-decoration: none;
         display: inline-flex;
         align-items: center;
         justify-content: center;
-        font-family: var(--font-heading); /* changed */
+        font-family: var(--font-heading);
       }
       .btn:hover {
         transform: translateY(-1px);
         box-shadow: 0 12px 28px rgba(0,0,0,0.12);
         background: rgba(255,255,255,0.92);
-        border-color: rgba(11, 28, 45, 0.30);
       }
       .btn:active { transform: translateY(0px); }
 
@@ -286,7 +284,7 @@
 
           <h1 class="headline">Watch this space!</h1>
           <p class="sub" id="subText">
-            We’re live Sunday night, 18th January. Prebook early for an opening offer and your preferred appointment time. Doors open Tuesday, 27 January on Buderim High Street.
+            Our website is live Sunday night, 18th January. Prebook early for an discounted opening offer and your preferred appointment time. Doors open Tuesday, 27 January on Buderim High Street.
           </p>
 
           <div class="actions">
