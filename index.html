@@ -10,15 +10,14 @@
         --right-bg: linear-gradient(180deg, #fef9c9 0%, #e8f2f7 100%);
 
         --text: #101114;
-        --muted: #9aa0a6;
         --hairline: rgba(16, 17, 20, 0.10);
 
-        /* NAVY button (adjust later to your exact palette navy if needed) */
-        --navy: #0b1f3b;
-        --navy-hover: #081833;
+        /* Brand colours */
+        --navy: #0B1C2D;
+        --btn-bg: #E6F2F7;
+        --btn-text: #0B1C2D;
 
         /* Layout */
-        --panel-radius: 0px;
         --max-width: 1200px;
       }
 
@@ -44,7 +43,6 @@
         position: relative;
         overflow: hidden;
 
-        /* Overlay + subtle glow + your real image */
         background-image:
           linear-gradient(120deg, rgba(0,0,0,0.18), rgba(0,0,0,0.12)),
           radial-gradient(1000px 700px at 30% 10%, rgba(255,255,255,0.12), transparent 60%),
@@ -53,7 +51,6 @@
         background-position: center;
       }
 
-      /* Optional subtle vignette */
       .left::after {
         content: "";
         position: absolute;
@@ -74,7 +71,6 @@
         position: relative;
       }
 
-      /* Divider shadow between panels */
       .right::before {
         content: "";
         position: absolute;
@@ -93,12 +89,13 @@
         text-align: center;
       }
 
-      /* LOGO 10% bigger */
+      /* Health by Hayley 10% smaller + Navy */
       .logo {
         font-weight: 700;
         letter-spacing: 0.14em;
-        font-size: 24px; /* was 22px */
+        font-size: 22px; /* smaller */
         margin-bottom: clamp(20px, 3vw, 34px);
+        color: var(--navy);
       }
 
       .countdown {
@@ -142,10 +139,12 @@
         color: rgba(16,17,20,0.22);
       }
 
+      /* Coming Soon title Navy */
       .headline {
         font-family: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
         font-size: clamp(34px, 4vw, 44px);
         margin: 0 0 10px;
+        color: var(--navy);
       }
 
       .sub {
@@ -165,31 +164,32 @@
         margin-bottom: clamp(26px, 4vw, 44px);
       }
 
-      /* NAVY button + white text */
+      /* Prebookings button light blue + navy text */
       .btn {
         appearance: none;
-        border: none;
+        border: 1px solid rgba(11, 28, 45, 0.18);
         cursor: pointer;
         padding: 14px 22px;
         border-radius: 999px;
-        background: var(--navy);
-        color: #ffffff;
-        font-weight: 700;
+        background: var(--btn-bg);
+        color: var(--btn-text);
+        font-weight: 800;
         letter-spacing: 0.08em;
         text-transform: uppercase;
         font-size: 12px;
         min-width: 190px;
         box-shadow: 0 10px 24px rgba(0,0,0,0.10);
-        transition: transform 150ms ease, background 150ms ease, box-shadow 150ms ease;
+        transition: transform 150ms ease, box-shadow 150ms ease, background 150ms ease, border-color 150ms ease;
         text-decoration: none;
         display: inline-flex;
         align-items: center;
         justify-content: center;
       }
       .btn:hover {
-        background: var(--navy-hover);
         transform: translateY(-1px);
         box-shadow: 0 12px 28px rgba(0,0,0,0.12);
+        background: #dbeef5;
+        border-color: rgba(11, 28, 45, 0.26);
       }
       .btn:active { transform: translateY(0px); }
 
@@ -203,8 +203,8 @@
 
       /* Social icons 10% bigger */
       .iconBtn {
-        width: 48px;  /* was 44px */
-        height: 48px; /* was 44px */
+        width: 48px;
+        height: 48px;
         border-radius: 999px;
         display: grid;
         place-items: center;
@@ -219,9 +219,8 @@
         background: rgba(16,17,20,0.06);
         border-color: rgba(16,17,20,0.18);
       }
-      .iconBtn svg { width: 20px; height: 20px; } /* was 18px */
+      .iconBtn svg { width: 20px; height: 20px; }
 
-      /* Responsive: stack on mobile */
       @media (max-width: 900px) {
         .page { flex-direction: column; }
         .left { min-height: 44vh; }
@@ -238,11 +237,8 @@
 
   <body>
     <main class="page">
-
-      <!-- LEFT IMAGE PANEL (no inline style so it can’t override your CSS image) -->
       <section class="left" aria-label="Background image"></section>
 
-      <!-- RIGHT CONTENT -->
       <section class="right">
         <div class="card">
           <div class="logo" id="logoText">HEALTH BY HAYLEY</div>
@@ -272,14 +268,17 @@
           </p>
 
           <div class="actions">
-            <!-- Replace href with your prebooking link -->
-            <a class="btn" href="https://your-prebooking-link.com" target="_blank" rel="noreferrer">
+            <a
+              class="btn"
+              href="https://health-by-hayley.au5.cliniko.com/bookings"
+              target="_blank"
+              rel="noreferrer"
+            >
               Prebookings
             </a>
           </div>
 
           <nav class="socials" aria-label="Social links">
-            <!-- Replace href values with your real links -->
             <a class="iconBtn" href="https://facebook.com/" target="_blank" rel="noreferrer" aria-label="Facebook">
               <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
                 <path
@@ -289,7 +288,13 @@
               </svg>
             </a>
 
-            <a class="iconBtn" href="https://instagram.com/" target="_blank" rel="noreferrer" aria-label="Instagram">
+            <a
+              class="iconBtn"
+              href="https://www.instagram.com/drhayley_chiro/"
+              target="_blank"
+              rel="noreferrer"
+              aria-label="Instagram"
+            >
               <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
                 <path
                   d="M7.5 2h9A5.5 5.5 0 0 1 22 7.5v9A5.5 5.5 0 0 1 16.5 22h-9A5.5 5.5 0 0 1 2 16.5v-9A5.5 5.5 0 0 1 7.5 2Zm9 2h-9A3.5 3.5 0 0 0 4 7.5v9A3.5 3.5 0 0 0 7.5 20h9a3.5 3.5 0 0 0 3.5-3.5v-9A3.5 3.5 0 0 0 16.5 4Z"
@@ -335,28 +340,26 @@
     <script>
       /**
        * Countdown ends on WEDNESDAY 18:00 Queensland time (Australia/Brisbane, UTC+10).
-       * This auto-calculates the NEXT Wednesday at 18:00 Brisbane time,
-       * so anyone who loads the page will see a live updating countdown.
+       * Auto-calculates the NEXT Wednesday at 18:00 Brisbane time.
        */
 
       const BRISBANE_OFFSET_MS = 10 * 60 * 60 * 1000; // QLD is UTC+10 year-round
 
       function getNextWednesday6pmBrisbaneUtcMs(nowUtcMs) {
-        // Convert "now" into Brisbane time by shifting +10, then use UTC getters (stable)
         const brisNow = new Date(nowUtcMs + BRISBANE_OFFSET_MS);
 
         const year = brisNow.getUTCFullYear();
         const month = brisNow.getUTCMonth();
         const date = brisNow.getUTCDate();
-        const day = brisNow.getUTCDay(); // 0=Sun, 1=Mon, 2=Tue, 3=Wed, ...
+        const day = brisNow.getUTCDay(); // 0=Sun ... 3=Wed
 
         const isWed = day === 3;
         const after6pm =
           brisNow.getUTCHours() > 18 ||
           (brisNow.getUTCHours() === 18 && (brisNow.getUTCMinutes() > 0 || brisNow.getUTCSeconds() > 0));
 
-        let daysUntil = (3 - day + 7) % 7; // days until Wednesday
-        if (isWed && after6pm) daysUntil = 7; // if it's already past Wed 6pm, go to next week
+        let daysUntil = (3 - day + 7) % 7;
+        if (isWed && after6pm) daysUntil = 7;
 
         // Brisbane 18:00 == UTC 08:00 (because +10)
         return Date.UTC(year, month, date + daysUntil, 8, 0, 0);
@@ -376,7 +379,7 @@
 
       function tickAnim(node) {
         node.classList.remove("tick");
-        void node.offsetWidth; // restart animation
+        void node.offsetWidth;
         node.classList.add("tick");
       }
 
