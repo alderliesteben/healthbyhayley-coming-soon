@@ -26,18 +26,14 @@
         --text: #101114;
         --hairline: rgba(16, 17, 20, 0.10);
 
-        /* Brand colours */
         --navy: #0B1C2D;
 
-        /* Button: white with navy text */
         --btn-bg: #ffffff;
         --btn-text: #0B1C2D;
 
-        /* Fonts */
         --font-heading: "Poppins", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
         --font-body: "Inter", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
 
-        /* Layout */
         --max-width: 1200px;
       }
 
@@ -64,9 +60,11 @@
         background-image:
           linear-gradient(120deg, rgba(0,0,0,0.18), rgba(0,0,0,0.12)),
           radial-gradient(1000px 700px at 30% 10%, rgba(255,255,255,0.12), transparent 60%),
-          url("photos/coming-soon.png");
+          url("photos/coming-soon.jpg");
         background-size: cover;
         background-position: center;
+        transform: scale(1.15); /* zoom in by 15% */
+        transform-origin: center;
       }
 
       .left::after {
@@ -107,7 +105,7 @@
         text-align: center;
       }
 
-      /* ===== ENTER ANIMATION (subtle + professional) ===== */
+      /* ===== ENTER ANIMATION ===== */
       .logo, .countdown, .headline, .sub, .actions, .socials {
         opacity: 0;
         transform: translateY(10px);
@@ -132,7 +130,6 @@
         }
       }
 
-      /* Logo: navy */
       .logo {
         font-weight: 700;
         letter-spacing: 0.14em;
@@ -186,7 +183,6 @@
         font-family: var(--font-body);
       }
 
-      /* Heading size -20% */
       .headline {
         font-family: var(--font-heading);
         font-weight: 800;
@@ -196,7 +192,6 @@
         letter-spacing: -0.02em;
       }
 
-      /* Description */
       .sub {
         font-family: var(--font-heading);
         font-weight: 600;
@@ -217,7 +212,6 @@
         margin-bottom: clamp(26px, 4vw, 44px);
       }
 
-      /* Button: no outline */
       .btn {
         appearance: none;
         border: none;
@@ -273,26 +267,26 @@
       }
       .iconBtn svg { width: 20px; height: 20px; }
 
+      /* Make icons "disabled" when needed (same design, just unclickable) */
+      .iconBtn.disabled {
+        pointer-events: none;
+        cursor: default;
+      }
+
       @media (max-width: 900px) {
         .page { flex-direction: column; }
         .left { min-height: 44vh; }
         .right::before { display: none; }
       }
 
-      /* Mobile countdown fit better (no desktop change) */
       @media (max-width: 520px) {
         .countdown {
           grid-template-columns: repeat(2, minmax(0, 1fr));
           gap: 12px;
           max-width: 360px;
         }
-        .num {
-          font-size: clamp(36px, 10vw, 46px);
-        }
-        .label {
-          font-size: 10px;
-          letter-spacing: 0.14em;
-        }
+        .num { font-size: clamp(36px, 10vw, 46px); }
+        .label { font-size: 10px; letter-spacing: 0.14em; }
         .btn { min-width: 100%; }
         .actions { flex-direction: column; }
       }
@@ -309,7 +303,7 @@
 
           <div class="countdown" aria-label="Countdown">
             <div class="timebox">
-              <div class="num" id="days">0</div>
+              <div class="num" id="days">00</div>
               <div class="label">Day(s)</div>
             </div>
             <div class="timebox">
@@ -343,7 +337,8 @@
           </div>
 
           <nav class="socials" aria-label="Social links">
-            <a class="iconBtn" href="blank" target="_blank" rel="noreferrer" aria-label="Facebook">
+            <!-- Facebook: disabled (unclickable) -->
+            <a class="iconBtn disabled" aria-label="Facebook (coming soon)" role="link" aria-disabled="true">
               <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
                 <path
                   d="M14 9h3V6h-3c-2.2 0-4 1.8-4 4v2H7v3h3v7h3v-7h3l1-3h-4v-2c0-.6.4-1 1-1Z"
@@ -352,6 +347,7 @@
               </svg>
             </a>
 
+            <!-- Instagram: active -->
             <a
               class="iconBtn"
               href="https://www.instagram.com/drhayley_chiro/"
@@ -372,8 +368,8 @@
               </svg>
             </a>
 
-            <!-- removed the accidental 'объясняющий' word -->
-            <a class="iconBtn" href="blank" target="_blank" rel="noreferrer" aria-label="Google Business Profile">
+            <!-- Google: disabled (unclickable) -->
+            <a class="iconBtn disabled" aria-label="Google Business Profile (coming soon)" role="link" aria-disabled="true">
               <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
                 <path
                   d="M21 12.3c0-.7-.1-1.2-.2-1.8H12v3.4h5.1c-.1.9-.8 2.3-2.4 3.2l-.1.1 2.8 2.1.2-.2c2-1.8 3.4-4.5 3.4-7.8Z"
@@ -418,8 +414,8 @@
 
       const pad2 = (n) => String(n).padStart(2, "0");
 
-      // Days should NOT have leading zeros (fix: remove "00" prefix)
-      const formatDays = (n) => String(Math.max(0, n));
+      // Days: always 2 digits (e.g., 04)
+      const formatDays2 = (n) => pad2(Math.max(0, n));
 
       const last = { days: null, hours: null, minutes: null, seconds: null };
 
@@ -441,7 +437,7 @@
         const seconds = totalSeconds % 60;
 
         const next = {
-          days: formatDays(days),      // <- no leading zeros
+          days: formatDays2(days),
           hours: pad2(hours),
           minutes: pad2(minutes),
           seconds: pad2(seconds),
