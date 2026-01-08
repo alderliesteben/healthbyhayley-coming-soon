@@ -67,8 +67,6 @@
           url("photos/coming-soon.jpg");
         background-size: cover;
         background-position: center;
-        transform: scale(1.15); /* zoom in by 15% (desktop + all sizes) */
-        transform-origin: center;
       }
 
       .left::after {
@@ -134,7 +132,7 @@
         }
       }
 
-      /* Logo */
+      /* Logo: navy */
       .logo {
         font-weight: 700;
         letter-spacing: 0.14em;
@@ -188,6 +186,7 @@
         font-family: var(--font-body);
       }
 
+      /* Heading size -20% */
       .headline {
         font-family: var(--font-heading);
         font-weight: 800;
@@ -197,6 +196,7 @@
         letter-spacing: -0.02em;
       }
 
+      /* Description */
       .sub {
         font-family: var(--font-heading);
         font-weight: 600;
@@ -217,6 +217,7 @@
         margin-bottom: clamp(26px, 4vw, 44px);
       }
 
+      /* Button: no outline */
       .btn {
         appearance: none;
         border: none;
@@ -308,7 +309,7 @@
 
           <div class="countdown" aria-label="Countdown">
             <div class="timebox">
-              <div class="num" id="days">00</div>
+              <div class="num" id="days">0</div>
               <div class="label">Day(s)</div>
             </div>
             <div class="timebox">
@@ -371,6 +372,7 @@
               </svg>
             </a>
 
+            <!-- removed the accidental 'объясняющий' word -->
             <a class="iconBtn" href="https://www.google.com/" target="_blank" rel="noreferrer" aria-label="Google Business Profile">
               <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
                 <path
@@ -416,8 +418,8 @@
 
       const pad2 = (n) => String(n).padStart(2, "0");
 
-      // Days: show 2 digits (one leading 0 if needed)
-      const formatDays2 = (n) => pad2(Math.max(0, n));
+      // Days should NOT have leading zeros (fix: remove "00" prefix)
+      const formatDays = (n) => String(Math.max(0, n));
 
       const last = { days: null, hours: null, minutes: null, seconds: null };
 
@@ -439,7 +441,7 @@
         const seconds = totalSeconds % 60;
 
         const next = {
-          days: formatDays2(days),
+          days: formatDays(days),      // <- no leading zeros
           hours: pad2(hours),
           minutes: pad2(minutes),
           seconds: pad2(seconds),
