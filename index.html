@@ -15,8 +15,18 @@
 
     <style>
       :root {
-        /* Slightly more vibrant (≈15%) version of your gradient */
-        --right-bg: linear-gradient(180deg, #fff6ad 0%, #d8edf8 100%);
+        /*
+          Updated background:
+          - Holds the yellow longer so the colours start merging just above the heading
+          - Makes the yellow -> blue fade ~10% faster by compressing the transition range
+        */
+        --right-bg: linear-gradient(
+          180deg,
+          #fff6ad 0%,
+          #fff6ad 56%,
+          #d8edf8 86%,
+          #d8edf8 100%
+        );
 
         --text: #101114;
         --hairline: rgba(16, 17, 20, 0.10);
@@ -169,9 +179,9 @@
         font-family: var(--font-heading);
         font-weight: 600;
         margin: 0 0 26px;
-        color: rgba(11, 28, 45, 0.74);              /* was 0.82 */
-        font-size: clamp(10.8px, 0.945vw, 12px);  /* was clamp(12px, 1.05vw, 15px) */
-        max-width: 650px;
+        color: rgba(11, 28, 45, 0.74);
+        font-size: clamp(10.8px, 0.945vw, 13.5px);
+        max-width: 640px;
         margin-left: auto;
         margin-right: auto;
         line-height: 1.6;
@@ -185,10 +195,10 @@
         margin-bottom: clamp(26px, 4vw, 44px);
       }
 
-      /* Button: remove outline (border) */
+      /* Button: no outline */
       .btn {
         appearance: none;
-        border: none; /* removed outline */
+        border: none;
         cursor: pointer;
         padding: 14px 22px;
         border-radius: 999px;
@@ -284,8 +294,7 @@
 
           <h1 class="headline">Watch this space!</h1>
           <p class="sub" id="subText">
-            Our website is live Sunday night, 18th January. Prebook early for an discounted opening offer and your preferred appointment time. Doors open Tuesday, 27 January on Buderim High Street.
-          </p>
+          Our website is live Sunday night, 18 January. Prebook early for an discounted opening offer and your preferred appointment time. Doors open Tuesday, 27 January on Buderim High Street.          </p>
 
           <div class="actions">
             <a
@@ -328,7 +337,7 @@
               </svg>
             </a>
 
-            <a class="iconBtn" href="https://www.google.com/" target="_blank" rel="noreferrer" aria-label="Google Business Profile">
+            <a class="iconBtn" href="https://www.google.com/" target="_blank" rel="noreferrer" объясняющий aria-label="Google Business Profile">
               <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
                 <path
                   d="M21 12.3c0-.7-.1-1.2-.2-1.8H12v3.4h5.1c-.1.9-.8 2.3-2.4 3.2l-.1.1 2.8 2.1.2-.2c2-1.8 3.4-4.5 3.4-7.8Z"
