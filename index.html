@@ -6,14 +6,16 @@
     <title>Coming Soon</title>
     <style>
       :root {
-        /* === Brand colours (you’ll tell me what to set these to next) === */
-        --right-bg: #ffffff;
+        /* RIGHT SIDE BACKGROUND (your attached gradient) */
+        --right-bg: linear-gradient(180deg, #fef9c9 0%, #e8f2f7 100%);
+
         --text: #101114;
         --muted: #9aa0a6;
         --hairline: rgba(16, 17, 20, 0.10);
-        --accent: #8a5a12;          /* button */
-        --accent-hover: #744b0f;
-        --accent-text: #ffffff;
+
+        /* NAVY button (adjust later to your exact palette navy if needed) */
+        --navy: #0b1f3b;
+        --navy-hover: #081833;
 
         /* Layout */
         --panel-radius: 0px;
@@ -41,21 +43,17 @@
         flex: 1.05;
         position: relative;
         overflow: hidden;
-        background:
+
+        /* Overlay + subtle glow + your real image */
+        background-image:
           linear-gradient(120deg, rgba(0,0,0,0.18), rgba(0,0,0,0.12)),
           radial-gradient(1000px 700px at 30% 10%, rgba(255,255,255,0.12), transparent 60%),
-          linear-gradient(180deg, #cfcfd3, #b9bcc2);
-        /* Replace with your image:
-           background-image: url("/path/to/your-image.jpg");
-           background-size: cover;
-           background-position: center;
-        */
-        background-image: url("photos/coming-soon.jpg");
+          url("photos/coming-soon.jpg");
         background-size: cover;
         background-position: center;
       }
 
-      /* Optional subtle vignette like the reference */
+      /* Optional subtle vignette */
       .left::after {
         content: "";
         position: absolute;
@@ -95,10 +93,11 @@
         text-align: center;
       }
 
+      /* LOGO 10% bigger */
       .logo {
         font-weight: 700;
         letter-spacing: 0.14em;
-        font-size: 22px;
+        font-size: 24px; /* was 22px */
         margin-bottom: clamp(20px, 3vw, 34px);
       }
 
@@ -129,10 +128,7 @@
         transform: translateZ(0);
       }
 
-      /* Simple “tick” animation when digits change */
-      .num.tick {
-        animation: pop 280ms ease-out;
-      }
+      .num.tick { animation: pop 280ms ease-out; }
       @keyframes pop {
         0% { transform: translateY(0); opacity: 0.75; }
         40% { transform: translateY(-4px); opacity: 1; }
@@ -156,6 +152,9 @@
         margin: 0 0 26px;
         color: rgba(16,17,20,0.62);
         font-size: 14px;
+        max-width: 520px;
+        margin-left: auto;
+        margin-right: auto;
       }
 
       .actions {
@@ -166,14 +165,15 @@
         margin-bottom: clamp(26px, 4vw, 44px);
       }
 
+      /* NAVY button + white text */
       .btn {
         appearance: none;
         border: none;
         cursor: pointer;
         padding: 14px 22px;
         border-radius: 999px;
-        background: var(--accent);
-        color: var(--accent-text);
+        background: var(--navy);
+        color: #ffffff;
         font-weight: 700;
         letter-spacing: 0.08em;
         text-transform: uppercase;
@@ -187,7 +187,7 @@
         justify-content: center;
       }
       .btn:hover {
-        background: var(--accent-hover);
+        background: var(--navy-hover);
         transform: translateY(-1px);
         box-shadow: 0 12px 28px rgba(0,0,0,0.12);
       }
@@ -201,9 +201,10 @@
         margin-top: 8px;
       }
 
+      /* Social icons 10% bigger */
       .iconBtn {
-        width: 44px;
-        height: 44px;
+        width: 48px;  /* was 44px */
+        height: 48px; /* was 44px */
         border-radius: 999px;
         display: grid;
         place-items: center;
@@ -218,7 +219,7 @@
         background: rgba(16,17,20,0.06);
         border-color: rgba(16,17,20,0.18);
       }
-      .iconBtn svg { width: 18px; height: 18px; }
+      .iconBtn svg { width: 20px; height: 20px; } /* was 18px */
 
       /* Responsive: stack on mobile */
       @media (max-width: 900px) {
@@ -238,13 +239,8 @@
   <body>
     <main class="page">
 
-      <!-- LEFT IMAGE PLACEHOLDER -->
-<section
-  class="left"
-  aria-label="Background image"
-  style="background-image: linear-gradient(120deg, rgba(0,0,0,0.18), rgba(0,0,0,0.12)), url('photos/coming-soon.jpg'); background-size: cover; background-position: center;"
-></section>
-
+      <!-- LEFT IMAGE PANEL (no inline style so it can’t override your CSS image) -->
+      <section class="left" aria-label="Background image"></section>
 
       <!-- RIGHT CONTENT -->
       <section class="right">
@@ -271,7 +267,9 @@
           </div>
 
           <h1 class="headline">Coming Soon</h1>
-          <p class="sub" id="subText">We’re getting things ready — Make sure to prebook your appointment with Hayley .</p>
+          <p class="sub" id="subText">
+            We’re getting things ready — Prebook now to secure an early appointment and access to our opening discounted offer
+          </p>
 
           <div class="actions">
             <!-- Replace href with your prebooking link -->
@@ -283,7 +281,6 @@
           <nav class="socials" aria-label="Social links">
             <!-- Replace href values with your real links -->
             <a class="iconBtn" href="https://facebook.com/" target="_blank" rel="noreferrer" aria-label="Facebook">
-              <!-- Facebook icon -->
               <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
                 <path
                   d="M14 9h3V6h-3c-2.2 0-4 1.8-4 4v2H7v3h3v7h3v-7h3l1-3h-4v-2c0-.6.4-1 1-1Z"
@@ -293,7 +290,6 @@
             </a>
 
             <a class="iconBtn" href="https://instagram.com/" target="_blank" rel="noreferrer" aria-label="Instagram">
-              <!-- Instagram icon -->
               <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
                 <path
                   d="M7.5 2h9A5.5 5.5 0 0 1 22 7.5v9A5.5 5.5 0 0 1 16.5 22h-9A5.5 5.5 0 0 1 2 16.5v-9A5.5 5.5 0 0 1 7.5 2Zm9 2h-9A3.5 3.5 0 0 0 4 7.5v9A3.5 3.5 0 0 0 7.5 20h9a3.5 3.5 0 0 0 3.5-3.5v-9A3.5 3.5 0 0 0 16.5 4Z"
@@ -308,7 +304,6 @@
             </a>
 
             <a class="iconBtn" href="https://www.google.com/" target="_blank" rel="noreferrer" aria-label="Google Business Profile">
-              <!-- Google 'G' simple icon -->
               <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
                 <path
                   d="M21 12.3c0-.7-.1-1.2-.2-1.8H12v3.4h5.1c-.1.9-.8 2.3-2.4 3.2l-.1.1 2.8 2.1.2-.2c2-1.8 3.4-4.5 3.4-7.8Z"
@@ -339,11 +334,33 @@
 
     <script>
       /**
-       * Countdown target:
-       * Set to your launch date/time (local time). Example:
-       * new Date("2026-02-01T09:00:00")
+       * Countdown ends on WEDNESDAY 18:00 Queensland time (Australia/Brisbane, UTC+10).
+       * This auto-calculates the NEXT Wednesday at 18:00 Brisbane time,
+       * so anyone who loads the page will see a live updating countdown.
        */
-      const TARGET_DATE = new Date("2026-02-01T09:00:00");
+
+      const BRISBANE_OFFSET_MS = 10 * 60 * 60 * 1000; // QLD is UTC+10 year-round
+
+      function getNextWednesday6pmBrisbaneUtcMs(nowUtcMs) {
+        // Convert "now" into Brisbane time by shifting +10, then use UTC getters (stable)
+        const brisNow = new Date(nowUtcMs + BRISBANE_OFFSET_MS);
+
+        const year = brisNow.getUTCFullYear();
+        const month = brisNow.getUTCMonth();
+        const date = brisNow.getUTCDate();
+        const day = brisNow.getUTCDay(); // 0=Sun, 1=Mon, 2=Tue, 3=Wed, ...
+
+        const isWed = day === 3;
+        const after6pm =
+          brisNow.getUTCHours() > 18 ||
+          (brisNow.getUTCHours() === 18 && (brisNow.getUTCMinutes() > 0 || brisNow.getUTCSeconds() > 0));
+
+        let daysUntil = (3 - day + 7) % 7; // days until Wednesday
+        if (isWed && after6pm) daysUntil = 7; // if it's already past Wed 6pm, go to next week
+
+        // Brisbane 18:00 == UTC 08:00 (because +10)
+        return Date.UTC(year, month, date + daysUntil, 8, 0, 0);
+      }
 
       const el = {
         days: document.getElementById("days"),
@@ -359,15 +376,15 @@
 
       function tickAnim(node) {
         node.classList.remove("tick");
-        // restart animation
-        void node.offsetWidth;
+        void node.offsetWidth; // restart animation
         node.classList.add("tick");
       }
 
       function update() {
-        const now = new Date();
-        let diff = TARGET_DATE.getTime() - now.getTime();
+        const nowUtcMs = Date.now();
+        const targetUtcMs = getNextWednesday6pmBrisbaneUtcMs(nowUtcMs);
 
+        let diff = targetUtcMs - nowUtcMs;
         if (diff <= 0) diff = 0;
 
         const totalSeconds = Math.floor(diff / 1000);
